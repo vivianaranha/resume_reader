@@ -7,7 +7,7 @@ const express = require('express'),
       upload  = multer({
         storage: multer.diskStorage({
           destination: function (req, file, cb) {
-            cb(null, './uploads/')
+            cb(null, '/tmp/')
           },
           filename: function (req, file, cb) {
             crypto.pseudoRandomBytes(16, function (err, raw) {
@@ -39,7 +39,7 @@ router.post('/', upload.single('upl'), async function (req, res, next) {
   var myEventHandler = function (fileName) {
     console.log('I hear a scream!');
 
-    filePath = path.join('./compiled/'+fileName+'.json');
+    filePath = path.join('/tmp/'+fileName+'.json');
 
     console.log(filePath);
 
@@ -59,7 +59,7 @@ router.post('/', upload.single('upl'), async function (req, res, next) {
   eventEmitter.on(req.file.path, myEventHandler);
 
 
-  parseIt.parseResume(req.file.path, './compiled', eventEmitter);
+  parseIt.parseResume(req.file.path, '/tmp', eventEmitter);
   
 
 
