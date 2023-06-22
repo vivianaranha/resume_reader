@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+   <head lang="en">
+      <meta charset="UTF-8">
+      <title></title>
+      <style>
+         #holder {
+         width:400px; 
+         height:200px; 
+         border: 10px dashed #ccc;
+         display: flex;
+         height: 150px;
+         align-items: center;
+         justify-content: center;
+         }
+         #holder.hover { border: 10px dashed #0c0 !important; }
+      </style>
+   </head>
+   <body>
+      <form id="myForm" method="post" action="/" enctype="multipart/form-data">
+         <input id="upl" name="upl" type="file"  class="validate" style="display:none">
+         <div id="holder">Drop Resume Here</div>
+      </form>
+      <script>
+         document.getElementById('upl').onchange = function() {
+             readfiles(document.getElementById('upl').files);
+         };
+         
+         
+         
+         
+         function readfiles(files) {
+         
+           for (var i = 0; i < files.length; i++) {
+             document.getElementById('holder').innerHTML = files[i].name;
+             document.getElementById('upl').files = files;
+             document.getElementById("myForm").submit();
+           }
+         }
+         var holder = document.getElementById('holder');
+         
+         
+         holder.ondragover = function () { this.className = 'hover'; return false; };
+         holder.ondragend = function () { this.className = ''; return false; };
+         holder.ondrop = function (e) {
+           this.className = '';
+           e.preventDefault();
+           readfiles(e.dataTransfer.files);
+         }
+         
+         document.getElementById('holder').addEventListener('click', openDialog);
+         
+         function openDialog() {
+           document.getElementById('upl').click();
+         }
+           
+      </script>
+   </body>
+</html>

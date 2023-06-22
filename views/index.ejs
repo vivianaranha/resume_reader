@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+   <head lang="en">
+      <meta charset="UTF-8">
+      <title></title>
+      <style>
+        h1{
+          font-size: 36px;
+          font-weight: 700;
+          line-height: 48px;
+
+        }
+         #holder {
+         color:gray;
+          margin-top:100px;
+          border-radius: 8px;
+          border: 2px dashed #ccc;
+          display: flex;
+          flex-flow: wrap;
+          height: 150px;
+          align-items: center;
+          justify-content: center;
+         }
+         .text {
+           width: 100%;
+           text-align: center;
+
+          }
+
+    html {  
+      display: table;
+      margin: auto;
+      font-family: Inter;
+
+
+    }
+
+
+
+         #holder.hover { border: 10px dashed #0c0 !important; }
+      </style>
+   </head>
+   <body>
+    <h1>Upload your resume to get started!</h1>
+      <form id="myForm" method="post" action="/" enctype="multipart/form-data">
+         <input id="upl" name="upl" type="file"  class="validate" style="display:none">
+         <div id="holder">
+              <img src="images/upload.png">
+              <span class="text">Click to browse or drop here</span>
+         </div>
+      </form>
+      <script>
+         document.getElementById('upl').onchange = function() {
+             readfiles(document.getElementById('upl').files);
+         };
+         
+         
+         
+         
+         function readfiles(files) {
+         
+           for (var i = 0; i < files.length; i++) {
+             document.getElementById('holder').innerHTML = files[i].name;
+             document.getElementById('upl').files = files;
+             document.getElementById("myForm").submit();
+           }
+         }
+         var holder = document.getElementById('holder');
+         
+         
+         holder.ondragover = function () { this.className = 'hover'; return false; };
+         holder.ondragend = function () { this.className = ''; return false; };
+         holder.ondrop = function (e) {
+           this.className = '';
+           e.preventDefault();
+           readfiles(e.dataTransfer.files);
+         }
+         
+         document.getElementById('holder').addEventListener('click', openDialog);
+         
+         function openDialog() {
+           document.getElementById('upl').click();
+         }
+           
+      </script>
+   </body>
+</html>

@@ -46,7 +46,7 @@ router.post('/', upload.single('upl'), async function (req, res, next) {
     fs.readFile(filePath, {encoding: 'utf-8'}, function(err,data){
       if (!err) {
         console.log('received data: ' + data);
-        res.json(JSON.parse(data));
+        res.send(JSON.parse(data).email + " - Is this a good email to use <button>Create Account</button>");
       } else {
         console.log(err);
       }
